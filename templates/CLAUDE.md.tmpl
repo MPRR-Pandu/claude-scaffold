@@ -1,0 +1,93 @@
+# {{PROJECT_NAME}} -- AI Assistant Guide
+
+This is the entry point for AI assistants working in this codebase. It provides an overview, critical rules, and links to detailed documentation.
+
+> Generated on {{DATE}} by [claude-scaffold](https://github.com/MPRR-Pandu/claude-scaffold)
+
+---
+
+## Quick Reference
+
+### Tech Stack
+
+<!-- Update this table with your actual tech stack -->
+
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| {{TECH_STACK}} | | |
+
+### Essential Commands
+
+| Task | Command |
+|------|---------|
+| Build | `{{BUILD_CMD}}` |
+| Test | `{{TEST_CMD}}` |
+| Lint | `{{LINT_CMD}}` |
+| Dev server | |
+
+### Critical Rules (Must Follow)
+
+<!-- Add your project's non-negotiable rules here. Examples: -->
+
+1. **Verify before done**: Always run `{{BUILD_CMD}}` before marking a task complete.
+2. **No hardcoded secrets**: Never commit API keys, tokens, or passwords. Use environment variables.
+3. <!-- Add more rules specific to your project -->
+
+---
+
+## Project Overview
+
+<!-- Describe what this project does in 2-3 sentences -->
+
+{{PROJECT_NAME}} is ...
+
+### Architecture
+
+<!-- Add your project's directory structure -->
+
+```
+{{PROJECT_NAME}}/
+├── src/
+├── tests/
+├── package.json / Cargo.toml / etc.
+└── ...
+```
+
+---
+
+## Common Workflows
+
+### Adding a New Feature
+
+1. <!-- Step 1 -->
+2. <!-- Step 2 -->
+3. **Verify**: `{{BUILD_CMD}}` passes, `{{TEST_CMD}}` passes.
+
+### Fixing a Bug
+
+1. Reproduce the issue
+2. Write a failing test
+3. Fix the code
+4. **Verify**: `{{TEST_CMD}}` passes, no regressions.
+
+---
+
+## Documentation Links
+
+| Area | Documentation |
+|------|---------------|
+| Lessons learned | [LESSONS.md](LESSONS.md) |
+| Session corrections | [.claude/lessons.md](.claude/lessons.md) |
+| Generic skills | [.claude/skills/generic/](.claude/skills/generic/) |
+| Project skills | [.claude/skills/project/](.claude/skills/project/) |
+
+---
+
+## Skills Directory
+
+Skills are reusable instruction sets that Claude loads based on context:
+
+- **Generic skills** (`.claude/skills/generic/`) -- Apply to any project: git workflows, security, frontend patterns, debugging, etc.
+- **Project skills** (`.claude/skills/project/`) -- Specific to this codebase: domain logic, API patterns, data models, etc.
+
+To add a project skill, copy `.claude/skills/project/_template.skill.md` and fill it in.

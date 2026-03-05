@@ -1,0 +1,116 @@
+# AI Workflow -- How Agents Should Work in {{PROJECT_NAME}}
+
+This document defines the operating protocol for AI agents (Claude, Copilot, Cursor, or any LLM-based coding assistant) working in this codebase.
+
+---
+
+## 1. Plan Before You Code
+
+For non-trivial tasks (3+ files, new features, architectural changes):
+
+1. **Explore first**: Read relevant files, understand the current state
+2. **Write a plan**: List the files to change, the approach, and potential risks
+3. **Get approval**: Present the plan before writing code (if working with a human)
+4. **Execute**: Implement the plan step by step
+5. **Re-plan on failure**: If something doesn't work, update the plan -- don't just keep trying
+
+**Skip planning for**: Typo fixes, single-line changes, adding comments, formatting.
+
+---
+
+## 2. Subagent Strategy
+
+When using multi-agent workflows:
+
+- **Offload research** to exploration agents -- don't read 50 files yourself
+- **One task per subagent** -- clear scope, clear deliverable
+- **Run independent agents in parallel** -- don't serialize what can be concurrent
+- **Don't duplicate work** -- if one agent already explored a file, use its findings
+
+---
+
+## 3. Self-Improvement Loop
+
+After every fix or feature:
+
+1. **Fix the immediate issue**
+2. **Check for similar issues** elsewhere in the codebase
+3. **Record lessons** in `.claude/lessons.md` if the root cause was non-obvious
+4. **Update NOPE.md** if you discovered a dead-end approach
+5. **Update LESSONS.md** if the fix has broader implications
+
+---
+
+## 4. Verification Before Done
+
+Never mark a task as complete without verification.
+
+### Verification Checklist
+
+| Change Type | Verify With |
+|-------------|-------------|
+| TypeScript / JavaScript | `{{BUILD_CMD}}` passes |
+| Rust | `cargo check` and `cargo test` |
+| Python | `pytest` and type checker |
+| CSS / Styles | Visual check + build passes |
+| API changes | `curl` test + build passes |
+| Config changes | Full build + relevant tests |
+| Dependency changes | `npm audit` / `cargo audit` + build + tests |
+
+### Quality Bar
+
+Apply a staff-engineer standard to every change:
+
+- **Simplest correct approach** -- not the most clever one
+- **Edge cases handled** -- empty, null, zero, negative, overflow
+- **No orphaned code** -- if you refactor, remove the old code
+- **No commented-out code** -- delete it; git has history
+- **Tests updated** -- if behavior changed, tests must reflect it
+
+---
+
+## 5. Autonomous Bug Fixing
+
+When fixing bugs without hand-holding:
+
+1. **Reproduce first**: Can you trigger the bug consistently?
+2. **Find root cause**: Don't just fix the symptom
+3. **Prove the fix**: Show that the bug no longer reproduces
+4. **Check for siblings**: Are there similar bugs elsewhere?
+5. **Add a test**: Prevent regression
+
+---
+
+## 6. Task Tracking
+
+Use structured task management throughout:
+
+1. **Create tasks upfront** before starting work
+2. **Mark progress** as you go (pending -> in_progress -> completed)
+3. **One in-progress at a time** -- finish before starting the next
+4. **Capture discoveries** -- add new tasks when you find unexpected work
+5. **Don't skip tasks** -- if a task becomes irrelevant, mark it cancelled with a reason
+
+---
+
+## 7. Session Start Checklist
+
+At the beginning of every new session:
+
+1. Read `.claude/lessons.md` -- avoid repeating known mistakes
+2. Read `CLAUDE.md` -- understand the project context
+3. Check `NOPE.md` -- know what approaches are dead ends
+4. Plan for non-trivial tasks -- don't dive into code without a plan
+5. Run the build/check command -- ensure the project is in a clean state
+
+---
+
+## 8. Communication Protocol
+
+When working with a human:
+
+- **Be direct**: State what you're doing, what you found, what you need
+- **Show evidence**: Include file paths, line numbers, error messages
+- **Ask once, ask well**: Batch questions instead of asking one at a time
+- **Flag blockers early**: Don't spend 30 minutes stuck -- surface the issue
+- **Summarize at the end**: What was done, what was changed, what to verify
